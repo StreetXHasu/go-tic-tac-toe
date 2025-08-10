@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        .status {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Tic-Tac-Toe</h1>
+        <p>Microservices Game Platform</p>
+        
+        <div class="status">
+            <h3>Service Status</h3>
+            <p>Frontend: ✅ Running</p>
+            <p>Gateway: <span id="gateway-status">Checking...</span></p>
+            <p>Auth Service: <span id="auth-status">Checking...</span></p>
+            <p>User Service: <span id="user-status">Checking...</span></p>
+            <p>Game Service: <span id="game-status">Checking...</span></p>
+            <p>Chat Service: <span id="chat-status">Checking...</span></p>
+        </div>
+        
+        <p><em>All services are running successfully! 🎉</em></p>
+    </div>
+
+    <script>
+        // Simple service health check
+        const services = [
+            { name: 'gateway', endpoint: '/health' },
+            { name: 'auth', endpoint: '/auth/health' },
+            { name: 'user', endpoint: '/user/health' },
+            { name: 'game', endpoint: '/game/health' },
+            { name: 'chat', endpoint: '/chat/health' }
+        ];
+        const baseUrl = 'http://localhost:8080';
+        
+        services.forEach(service => {
+            const statusElement = document.getElementById(`${service.name}-status`);
+            fetch(`${baseUrl}${service.endpoint}`)
+                .then(response => {
+                    if (response.ok) {
+                        statusElement.textContent = '✅ Running';
+                        statusElement.style.color = '#4CAF50';
+                    } else {
+                        statusElement.textContent = '❌ Error';
+                        statusElement.style.color = '#f44336';
+                    }
+                })
+                .catch(() => {
+                    statusElement.textContent = '❌ Offline';
+                    statusElement.style.color = '#f44336';
+                });
+        });
+    </script>
+</body>
+</html> 

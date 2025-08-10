@@ -291,18 +291,6 @@ go-tic-tac-toe/
 - **Chat Integration**: In-game messaging between players
 - **Statistics Tracking**: Win/loss ratios and performance metrics
 
-### Using Shared Package
-```go
-// In each service
-import (
-    "github.com/your-org/go-tic-tac-toe/pkg/config"
-    "github.com/your-org/go-tic-tac-toe/pkg/middleware"
-    "github.com/your-org/go-tic-tac-toe/pkg/database"
-    "github.com/your-org/go-tic-tac-toe/pkg/utils"
-)
-```
-
-
 
 ## Commands
 
